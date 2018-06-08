@@ -1,0 +1,28 @@
+body {
+    /* background-color: burlywood; */
+    /* padding: 0px; */
+    /* margin: 0px; */
+
+    /* display: flex; */
+  
+    /* justify-content: center; */
+    /* align-items: center; */
+}
+
+canvas {
+    /* display: block; */
+}
+
+#messages_container {
+
+    display: block;
+    height: 500px;
+    /* width: 500px; */
+    
+    overflow-y: scroll;
+}
+
+.avatar {
+
+    width: 50px;
+}
