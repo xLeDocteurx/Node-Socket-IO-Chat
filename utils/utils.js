@@ -9,6 +9,6 @@ exports.commit = function(data) {
   }); 
 };
 
-exports.elsee = function(req, res) {
+exports.autoscroll = function(req, res) {
   console.log('something else append');
 }

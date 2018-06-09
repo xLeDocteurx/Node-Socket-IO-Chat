@@ -1,27 +1,23 @@
 <%- include('./parts/head') %>
 <%- include('./parts/header') %>
-<div class="container-fluid">
 
-    <div class="row">
-        <div id="users_window" class="col-md-3">
-                <video id="vid" autoplay></video>
-        </div>
-        <div id="chat_window" class="col-md-7">
+<div id="chat_row" class="row">
+    <div id="users_window" class="d-none d-lg-block col-lg-2">
+        <video id="vid" autoplay></video>
+    </div>
+    <div id="chat_window" class="col">
 
-            <ul id="messages_container" class="list-unstyled">
-                <!-- parts/ message.ejs -->
-                <% datas.messages.forEach(function(message, index){ %>
-                    <%- include('parts/message', {post : message, i : index}); %>
-                        <% }); %>
-            </ul>
-            <div class="">
-                <input id="content_input" class="w-75" type="text" onchange="post_message()">
-                <button class="btn btn-dark" onclick="post_message()">Send</button>
-            </div>
-        </div>
-        <div id="connect_window" class="col-md-2">
+        <ul id="messages_container" class="list-unstyled">
+            <!-- parts/ message.ejs -->
+            <% datas.messages.forEach(function(message, index){ %>
+                <%- include('parts/message', {post : message, i : index}); %>
+            <% }); %>
+        </ul>
+        
+    </div>
+    <div id="connect_window" class="d-none d-lg-block col-lg-2">
 
-        </div>
     </div>
 </div>
+
 <%- include('./parts/footer') %>

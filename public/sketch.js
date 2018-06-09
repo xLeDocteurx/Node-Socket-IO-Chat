@@ -29,6 +29,7 @@ function setup() {
     //     vid.style.width = "200px";
     //     socket.emit('cam', stream);
     // });
+    noCanvas();
 }
 
 function draw() {
@@ -59,6 +60,7 @@ function post_message() {
         socket.emit('post', data);
         let msg = new Message(data.author, data.content, true);
         document.getElementById("messages_container").innerHTML += msg.html;
+        autoScroll();
     }
 }
 
@@ -66,8 +68,22 @@ function receve_message(data) {
     console.log(data.author + " posted a message :");
     console.log(data.content);
     let msg = new Message(data.author, data.content, false);
-    document.getElementById("messages_container").innerHTML += msg.html;
+    let container = document.getElementById("messages_container");
+    container.innerHTML += msg.html;
+    autoScroll();
 }
+
+function autoScroll() {
+    // let container = document.getElementById("messages_container");
+    // document.body.scrollTop = document.body.scrollHeight;
+    window.scrollTo(0,document.body.scrollHeight);
+}
+
+// function windowResized() {
+//     let chat_window = document.getElementById("chat_window");
+//     // chat_window.style.maxHeight = windowHeight;
+//     chat_window.style.height = windowHeight;
+// }
 
 class Message {
     constructor(author, content, isMine) {
@@ -80,16 +96,10 @@ class Message {
                         <h5>${author} : </h5>
                         ${content}
                     </div>`;
-        if (isMine == true) {
-            this.html = `<li class="media w-100 p-1">
-                            ${msg}
-                            ${img}
-                        </li>`;
-        } else {
-            this.html = `<li class="media w-100 p-1">        
-                            ${img}   
-                            ${msg}                           
-                        </li>`;
-        }
+
+        this.html = `<li class="media w-100 p-1">
+                        ${img}
+                        ${msg}
+                    </li>`;
     }
 }
