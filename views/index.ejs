@@ -10,9 +10,9 @@
 
             <ul id="messages_container" class="list-unstyled">
                 <!-- parts/ message.ejs -->
-                <%# datas.messages.forEach(function(message){ %>
-                    <%#- include('./parts/message', message); %>
-                        <%# }); %>
+                <% datas.messages.forEach(function(message, index){ %>
+                    <%- include('parts/message', {post : message, i : index}); %>
+                        <% }); %>
             </ul>
             <div class="">
                 <input id="content_input" class="w-75" type="text" onchange="post_message()">

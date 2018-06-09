@@ -1,7 +1,7 @@
-<li class="media m-1">
+<li id="msg_<%= i %>" class="media w-100 p-1">
     <img class="avatar m-2" src="img/000.jpg" alt="Generic placeholder image">
-    <div class="media-body">
-        <h5 class="mt-0 mb-1"><%= data.author %></h5>
-        "<%= data.content %>"
+    <div class="mt-0 w-90 pb-1 media-body">
+        <h5><%= post.author %> : </h5>
+        <%= post.content %>
     </div>
 </li>

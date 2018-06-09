@@ -18,7 +18,7 @@ function setup() {
     // capture.parent("users_window");
 
 
-    
+
     //    <video id="vid" autoplay></video>
 
     // navigator.mediaDevices.getUserMedia({
@@ -76,19 +76,19 @@ class Message {
             align = 'ml-auto';
         }
         let img = `<img class="avatar ${align} m-2" src="img/000.jpg" alt="Generic placeholder image">`;
-        let msg = `<div class="mt-0 w-90 pb-1 class="media-body">
-                        <h5>${author}</h5>
+        let msg = `<div class="mt-0 w-90 pb-1 media-body">
+                        <h5>${author} : </h5>
                         ${content}
                     </div>`;
         if (isMine == true) {
             this.html = `<li class="media w-100 p-1">
-                            ${img}
                             ${msg}
+                            ${img}
                         </li>`;
         } else {
-            this.html = `<li class="media w-100 p-1">          
-                            ${msg}
-                            ${img}                            
+            this.html = `<li class="media w-100 p-1">        
+                            ${img}   
+                            ${msg}                           
                         </li>`;
         }
     }
