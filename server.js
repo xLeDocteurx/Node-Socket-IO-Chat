@@ -15,7 +15,8 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(bodyparser.urlencoded({ extended: false }));
 
-let server = app.listen(webport);
+let server = app.listen(process.env.PORT || webport);
+
 let io = socket(server);
 
 app.get('/', (req, res) => {
