@@ -11,14 +11,13 @@ let sound;
 
 function preload() {
 
-    sound = loadSound('sound.wav');    
 }
 
 function setup() {
     socket = io.connect();
     socket.on('post', receve_message);
     socket.on('refresh', refresh_users);
-    
+    sound = loadSound('sound.wav');        
     sound.playMode('restart');
 
     // createCanvas(390, 240);
