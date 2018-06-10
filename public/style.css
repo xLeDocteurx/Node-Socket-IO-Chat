@@ -11,6 +11,19 @@ html, body {
     height: 100%;
 }
 
+/* #logged-button {
+    display: none;
+}
+
+#footer {
+    display: none;
+} */
+
+#logged-button img {
+    width: 38px;
+    height: 38px;
+}
+
 canvas {
     /* display: block; */
 }

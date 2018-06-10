@@ -1,7 +1,7 @@
 <!-- <footer class="mt-auto d-flex justify-content-center"> -->
 <footer class="fixed-bottom d-flex justify-content-center">
   <input id="content_input" class="w-75" type="text" onchange="post_message()">
-  <button class="btn btn-dark" onclick="post_message()">Send</button>
+  <button id="content_button" class="btn btn-dark" onclick="post_message()">Send</button>
 </footer>
 
 </div>
@@ -16,8 +16,25 @@
 <script src="p5/p5.js"></script>
 <script src="p5/addons/p5.dom.js"></script>
 
+
+<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBjyHo4R9j8foJZQMY1SKB3v_UBbz4CAnc",
+    authDomain: "node-socket-io-chat-3a649.firebaseapp.com",
+    databaseURL: "https://node-socket-io-chat-3a649.firebaseio.com",
+    projectId: "node-socket-io-chat-3a649",
+    storageBucket: "node-socket-io-chat-3a649.appspot.com",
+    messagingSenderId: "266861761508"
+  };
+  firebase.initializeApp(config);
+</script>
+
+
 <script src="scripts.js"></script>
 <script src="sketch.js"></script>
+
 
 </body>
 

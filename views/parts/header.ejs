@@ -1,8 +1,37 @@
 <div id="main_container" class="cover-container-fluid d-flex h-100 p-3 mx-auto flex-column">
 
     <!-- <header class="mb-auto"> -->
-    <header class="fixed-top">
+    <!-- <header class="fixed-top">
         <nav class="navbar navbar-expand navbar-dark bg-dark p-0">
             <h1 class="navbar-brand mx-3">Far Worst Chat</h1>
         </nav>
+    </header> -->
+    <header class="fixed-top">
+        <nav class="navbar d-flex justify-content-end navbar-expand navbar-dark bg-dark p-1">
+
+            <div id="loggin-button" class="nav-item dropdown mr-3">
+                <a class="nav-link dropdown-toggle" href="#" id="navbar1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Log In</a>
+                <div class="dropdown-menu p-0" aria-labelledby="navbar1">
+
+                    <form id="signin-form" class="form-signin">
+                        <label for="inputUsername" class="sr-only">Username</label>
+                        <input id="inputUsername" class="form-control" placeholder="Username" required="" autofocus="" type="text">
+                        <label for="inputPassword" class="sr-only">Password</label>
+                        <input id="inputPassword" class="form-control" placeholder="Password" required="" type="password">
+
+                        <button class="btn btn-sm btn-primary btn-block" type="submit" onclick="login()">Log In</button>
+                    </form>
+
+                </div>
+            </div>
+            <div id="logged-button" class="nav-item mr-3">
+                <img class="rounded-circle mr-2" src="img/000.jpg" alt="User Avatar">
+                <a href="user.html" id="userpage" class="mr-2">Username</a>
+                <button class="btn btn-sm" onclick="logOut()">X</button>
+            </div>
+            <a class="navbar-brand mr-3" href="index.html">Far Worst Social Network</a>
+        </nav>
+
+        <div class="page-header"></div>
+
     </header>

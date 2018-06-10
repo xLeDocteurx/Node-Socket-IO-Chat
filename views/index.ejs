@@ -2,12 +2,27 @@
     <%- include('./parts/header') %>
 
         <div id="chat_row" class="row mt-5">
-            <div id="users_window" class="col-lg-2">
-                Users list :
-                <% console.log(users); %>
-                    <% users.forEach(function(item, index){ %>
-                        <%- include('parts/user', {u : item, i : index}); %>
-                            <% }); %>
+            <div id="connect_window" class="col-lg-2">
+                Homemade :
+                <div id="loggin-page" class="p-0" aria-labelledby="navbar1">
+                    <form id="signin-form" class="form-signin">
+                        <label for="inputEmail" class="sr-only">Email</label>
+                        <input id="inputEmail" class="form-control" placeholder="Email" required="" autofocus="" type="email">
+                        <label for="inputPassword" class="sr-only">Password</label>
+                        <input id="inputPassword" class="form-control" placeholder="Password" required="" type="password">
+                        <!-- <div class="checkbox mb-3">
+                            <label>
+                                <input value="remember-me" type="checkbox"> Remember me
+                            </label>
+                        </div> -->
+                        <button class="btn btn-sm btn-primary btn-block" type="submit" onclick="login()">Log In</button>
+                    </form>
+                    <!-- <a class="dropdown-item disabled" href="#">Help</a> -->
+                    <!-- <a class="dropdown-item disabled" href="#">Documentation</a>
+                    <a class="dropdown-item disabled" href="#">About</a> -->
+                </div>
+                Firebase :
+                <div id="firebaseui-auth-container"></div>
             </div>
             <div id="chat_window" class="col">
 
@@ -19,9 +34,12 @@
                 </ul>
 
             </div>
-            <div id="connect_window" class="d-none d-lg-block col-lg-2">
-                Connect :
-                <div id="firebaseui-auth-container"></div>
+            <div id="users_window" class="col-lg-2">
+                Users list :
+                <% console.log(users); %>
+                    <% users.forEach(function(item, index){ %>
+                        <%- include('parts/user', {u : item, i : index}); %>
+                            <% }); %>
             </div>
         </div>
         <%- include('./parts/footer') %>

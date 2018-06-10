@@ -92,6 +92,41 @@ function autoScroll() {
 //     chat_window.style.height = windowHeight;
 // }
 
+firebase.auth().onAuthStateChanged(function (user) {
+    let logged = document.getElementById('logged-button');
+    let loggin = document.getElementById('loggin-button');
+    let logginp = document.getElementById('loggin-page');
+    let footer_input = document.getElementById('content_input');
+    let footer_button = document.getElementById('content_button');
+    
+    if (user) {
+        console.log("// User is signed in.");
+        logged.style.display = "initial";
+        footer_input.style.display = "initial";
+        footer_button.style.display = "initial";
+        loggin.style.display = "none";
+        logginp.style.display = "none";
+    } else {
+        logged.style.display = "none";        
+        footer_input.style.display = "none";
+        footer_button.style.display = "none";
+        loggin.style.display = "initial";        
+        logginp.style.display = "initial";
+        console.log("!! User is NOT signed in.");
+    }
+});
+
+function login() {
+
+    // alert("trying to log in");
+    let email = document.getElementById('inputEmail');
+    let password = document.getElementById('inputPassword');
+
+    console.log(`Ùser is trying to connect with email : ${email} and password : ${password}`);
+
+
+}
+
 function refresh_users() {
 
 }
