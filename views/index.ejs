@@ -2,8 +2,12 @@
     <%- include('./parts/header') %>
 
         <div id="chat_row" class="row mt-5">
-            <div id="connect_window" class="d-none d-lg-block col-lg-2">
-                Connect :
+            <div id="users_window" class="col-lg-2">
+                Users list :
+                <% console.log(users); %>
+                    <% users.forEach(function(item, index){ %>
+                        <%- include('parts/user', {u : item, i : index}); %>
+                            <% }); %>
             </div>
             <div id="chat_window" class="col">
 
@@ -15,13 +19,9 @@
                 </ul>
 
             </div>
-            <div id="users_window" class="col-lg-2">
-                Users list :
-                <% console.log(users); %>
-                <% users.forEach(function(item, index){ %>
-                    <%- include('parts/user', {u : item, i : index}); %>
-                        <% }); %>
+            <div id="connect_window" class="d-none d-lg-block col-lg-2">
+                Connect :
+                <div id="firebaseui-auth-container"></div>
             </div>
         </div>
-
         <%- include('./parts/footer') %>

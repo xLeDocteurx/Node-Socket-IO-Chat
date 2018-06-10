@@ -3,7 +3,9 @@ let socket = require('socket.io');
 let bodyparser = require('body-parser');
 let fs = require('fs');
 
-
+// let firebase = require('firebase');
+// let firebaseui = require('firebaseui');
+// var app = firebase.initializeApp({ ... });
 
 let all_Clients = [];
 let webport = 8080;
@@ -20,6 +22,14 @@ app.use(bodyparser.urlencoded({ extended: false }));
 let server = app.listen(process.env.PORT || webport);
 
 let io = socket(server);
+
+
+// ui.start('#firebaseui-auth-container', {
+//     signInOptions: [
+//         firebase.auth.EmailAuthProvider.PROVIDER_ID
+//     ],
+//     // Other config options...
+// });
 
 app.get('/', (req, res) => {
     res.render('index', { datas : save, users : all_Clients });
@@ -66,7 +76,6 @@ io.on('connection', (socket) => {
             author: data.author
         };
         save.messages.push(post);
-        console.log("Will start using the commit function : ");
         commit(save);
     });
 
@@ -80,7 +89,7 @@ io.on('connection', (socket) => {
         var i = all_Clients.indexOf(socket);
 
         all_Clients.splice(i, 1);
-        
+
         console.log(socket.id + ' // Got disconnect!');
         // console.log("New connected users list : ");
         // console.log(all_Clients);

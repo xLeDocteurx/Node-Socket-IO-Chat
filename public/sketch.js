@@ -92,6 +92,10 @@ function autoScroll() {
 //     chat_window.style.height = windowHeight;
 // }
 
+function refresh_users() {
+
+}
+
 // function refresh_users(data) {
 //     console.log('is refreshing');
 //     console.log(data);

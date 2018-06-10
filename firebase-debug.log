@@ -1,0 +1,13 @@
+[debug] [2018-06-10T01:27:41.999Z] ----------------------------------------------------------------------
+[debug] [2018-06-10T01:27:42.000Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2018-06-10T01:27:42.001Z] CLI Version:   3.18.6
+[debug] [2018-06-10T01:27:42.001Z] Platform:      linux
+[debug] [2018-06-10T01:27:42.001Z] Node Version:  v10.0.0
+[debug] [2018-06-10T01:27:42.001Z] Time:          Sun Jun 10 2018 03:27:42 GMT+0200 (CEST)
+[debug] [2018-06-10T01:27:42.001Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-06-10T01:27:42.007Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-06-10T01:27:42.007Z] > authorizing via signed-in user
+[debug] [2018-06-10T01:27:42.008Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/node-socket-io-chat-3a649  
+  
+ Sun Jun 10 2018 03:27:42 GMT+0200 (CEST)
