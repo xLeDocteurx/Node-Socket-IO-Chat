@@ -22,8 +22,7 @@ let server = app.listen(process.env.PORT || webport);
 let io = socket(server);
 
 app.get('/', (req, res) => {
-    console.log(`Someone is trying to connect on the server`);
-    res.render('index', { datas : save });
+    res.render('index', { datas : save, users : all_Clients });
 });
 
 // io.on('post_msg', function () {
@@ -39,17 +38,33 @@ app.get('/', (req, res) => {
 // });
 
 io.on('connection', (socket) => {
-    all_Clients.push(socket);
+    /////////////////////////////////////////////////////////////////////
+    // récupérer le localStorage apres connection de l'utilisateur     //
+    /////////////////////////////////////////////////////////////////////
+    console.log(`Someone is trying to connect on the server`);
+    all_Clients.push(socket.id);
+    /////////////////////////////////////////////////////////////////////
+    //                                                                 //
+    /////////////////////////////////////////////////////////////////////
+
+    // socket.emit('refresh_userslist', all_Clients);
     console.log("New client connection : " + socket.id);
+
+    socket.on('refresh', function (data) {
+        // data.clients = all_Clients;
+        socket.broadcast.emit('refresh', data);
+    });
 
     socket.on('post', function (data) {
         data.author = socket.id;
         console.log(data.author + " is trying to post a message :");
         console.log(data.content);
         socket.broadcast.emit('post', data);
-        let post = { id : save.messages[save.messages.length - 1].id + 1,
-                    content : data.content ,
-                    author : data.author};
+        let post = {
+            id: save.messages[save.messages.length - 1].id + 1,
+            content: data.content,
+            author: data.author
+        };
         save.messages.push(post);
         console.log("Will start using the commit function : ");
         commit(save);
@@ -62,10 +77,11 @@ io.on('connection', (socket) => {
     // });
 
     socket.on('disconnect', function () {
-        console.log(socket.id + ' // Got disconnect!');
         var i = all_Clients.indexOf(socket);
 
         all_Clients.splice(i, 1);
+        
+        console.log(socket.id + ' // Got disconnect!');
         // console.log("New connected users list : ");
         // console.log(all_Clients);
     });

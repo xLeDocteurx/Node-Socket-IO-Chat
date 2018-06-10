@@ -4,11 +4,18 @@ let capture;
 let isStreaming;
 let xstream;
 
-
+// let userlist = {
+//     clients : []
+// };
 
 function setup() {
     socket = io.connect();
     socket.on('post', receve_message);
+    // socket.on('refresh_userslist', refresh_users);
+
+    // socket.emit('refresh_userslist', userlist);
+    // refresh_users();
+
     // createCanvas(390, 240);
     // capture = createCapture(VIDEO, function (stream) {
     //     isStreaming = true;
@@ -76,13 +83,24 @@ function receve_message(data) {
 function autoScroll() {
     // let container = document.getElementById("messages_container");
     // document.body.scrollTop = document.body.scrollHeight;
-    window.scrollTo(0,document.body.scrollHeight);
+    window.scrollTo(0, document.body.scrollHeight);
 }
 
 // function windowResized() {
 //     let chat_window = document.getElementById("chat_window");
 //     // chat_window.style.maxHeight = windowHeight;
 //     chat_window.style.height = windowHeight;
+// }
+
+// function refresh_users(data) {
+//     console.log('is refreshing');
+//     console.log(data);
+//     let container = document.getElementById('users_window');
+//     data.clients.forEach((element, index) => {
+//         let child = document.createElement("p");
+//         child.innerHTML = element;
+//         container.appendChild(child);
+//     });
 // }
 
 class Message {
