@@ -23,7 +23,6 @@ let server = app.listen(process.env.PORT || webport);
 
 let io = socket(server);
 
-
 // ui.start('#firebaseui-auth-container', {
 //     signInOptions: [
 //         firebase.auth.EmailAuthProvider.PROVIDER_ID
@@ -32,7 +31,7 @@ let io = socket(server);
 // });
 
 app.get('/', (req, res) => {
-    res.render('index', { datas : save, users : all_Clients });
+    res.render('index', { datas: save, users: all_Clients });
 });
 
 // io.on('post_msg', function () {
@@ -52,7 +51,7 @@ io.on('connection', (socket) => {
     // récupérer le localStorage apres connection de l'utilisateur     //
     /////////////////////////////////////////////////////////////////////
     console.log(`Someone is trying to connect on the server`);
-    all_Clients.push(socket.id);
+    all_Clients.push({ sockid: socket.id, email: "" });
     /////////////////////////////////////////////////////////////////////
     //                                                                 //
     /////////////////////////////////////////////////////////////////////
@@ -60,9 +59,47 @@ io.on('connection', (socket) => {
     // socket.emit('refresh_userslist', all_Clients);
     console.log("New client connection : " + socket.id);
 
-    socket.on('refresh', function (data) {
+    socket.on('refresh', function () {
         // data.clients = all_Clients;
-        socket.broadcast.emit('refresh', data);
+        // data = all_Clients;
+        // console.log("refresh is asked to the serveur. request is prepared to be sent to all clients");
+        let data = {
+            clients : all_Clients,
+            save : save
+        };
+        io.sockets.emit('refresh', data);
+    });
+
+    socket.on('adduser', function (data) {
+
+        var i = all_Clients.indexOf(all_Clients.find(element => {
+            return element.sockid == socket.id;
+        }));
+        all_Clients[i].email = data;
+        console.log("pushed datas to all_Clients :");
+        console.log(data);
+        console.log("=== TO ==>");
+        console.log(all_Clients);
+
+        addanuser();
+    });
+
+    socket.on('subuser', function (data) {
+
+        subanuser(socket);
+    });
+
+    socket.on('register', function (data) {
+
+        let user = {
+            id: save.users[save.users.length - 1].id + 1,
+            email: data.email,
+            username: data.username,
+            avatar: "001.jpg"
+        };
+        save.users.push(user);
+        commit(save);
+
     });
 
     socket.on('post', function (data) {
@@ -86,9 +123,7 @@ io.on('connection', (socket) => {
     // });
 
     socket.on('disconnect', function () {
-        var i = all_Clients.indexOf(socket);
-
-        all_Clients.splice(i, 1);
+        subanuser(socket);
 
         console.log(socket.id + ' // Got disconnect!');
         // console.log("New connected users list : ");
@@ -96,7 +131,22 @@ io.on('connection', (socket) => {
     });
 });
 
+// function addanuser(data) {
+function addanuser() {
 
+    io.sockets.emit('refresh', all_Clients);
+}
+
+function subanuser(data) {
+
+    console.log("substracted datas from all_Clients :");
+    var i = all_Clients.indexOf(data.id);
+
+    all_Clients.splice(i, 1);
+    console.log("substracted datas from all_Clients :");
+    console.log(all_Clients);
+    io.sockets.emit('refresh', all_Clients);
+}
 
 // app.listen(webport, function (req, res) {
 //     console.log('My server is up and running !');

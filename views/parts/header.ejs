@@ -9,27 +9,48 @@
     <header class="fixed-top">
         <nav class="navbar d-flex justify-content-end navbar-expand navbar-dark bg-dark p-1">
 
+            <div id="newuser-button" class="nav-item dropdown mr-3">
+                <a class="nav-link dropdown-toggle" href="#" id="navbar1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Register</a>
+                <div class="dropdown-menu p-0" aria-labelledby="navbar1">
+
+                    <div id="newuser-form" class="form-signin">
+                        <label for="newUsername" class="sr-only">Username</label>
+                        <input id="newUsername" class="form-control" placeholder="Username" required="" type="text">
+                        <label for="newuserEmail" class="sr-only">Email</label>
+                        <input id="newuserEmail" class="form-control" placeholder="Email" required="" type="email">
+                        <label for="newuserPassword" class="sr-only">Password</label>
+                        <input id="newuserPassword" class="form-control" placeholder="Password" required="" type="password">
+
+                        <button class="btn btn-sm btn-primary btn-block" onclick="register()">Register</button>
+                    </div>
+
+                </div>
+            </div>
+
             <div id="loggin-button" class="nav-item dropdown mr-3">
                 <a class="nav-link dropdown-toggle" href="#" id="navbar1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Log In</a>
                 <div class="dropdown-menu p-0" aria-labelledby="navbar1">
 
-                    <form id="signin-form" class="form-signin">
-                        <label for="inputUsername" class="sr-only">Username</label>
-                        <input id="inputUsername" class="form-control" placeholder="Username" required="" autofocus="" type="text">
+                    <div id="signin-form" class="form-signin">
+                        <label for="inputEmail" class="sr-only">Email</label>
+                        <input id="inputEmail" class="form-control" placeholder="Email" required="" type="email">
                         <label for="inputPassword" class="sr-only">Password</label>
                         <input id="inputPassword" class="form-control" placeholder="Password" required="" type="password">
 
-                        <button class="btn btn-sm btn-primary btn-block" type="submit" onclick="login()">Log In</button>
-                    </form>
+                        <button class="btn btn-sm btn-primary btn-block" onclick="login()">Log In</button>
+                    </div>
 
                 </div>
             </div>
+
+
             <div id="logged-button" class="nav-item mr-3">
                 <img class="rounded-circle mr-2" src="img/000.jpg" alt="User Avatar">
-                <a href="user.html" id="userpage" class="mr-2">Username</a>
-                <button class="btn btn-sm" onclick="logOut()">X</button>
+                <span id="userpage" class="mr-2" href="user.html">User Email</span>
+                <button class="btn btn-sm" onclick="logout()">X</button>
             </div>
-            <a class="navbar-brand mr-3" href="index.html">Far Worst Social Network</a>
+
+            <a id="navbar-brand" class="navbar-brand mr-3" href="index.html">Far Worst Social Network</a>
         </nav>
 
         <div class="page-header"></div>

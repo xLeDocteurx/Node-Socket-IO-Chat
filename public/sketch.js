@@ -11,10 +11,7 @@ let xstream;
 function setup() {
     socket = io.connect();
     socket.on('post', receve_message);
-    // socket.on('refresh_userslist', refresh_users);
-
-    // socket.emit('refresh_userslist', userlist);
-    // refresh_users();
+    socket.on('refresh', refresh_users);
 
     // createCanvas(390, 240);
     // capture = createCapture(VIDEO, function (stream) {
@@ -37,9 +34,11 @@ function setup() {
     //     socket.emit('cam', stream);
     // });
     noCanvas();
+
 }
 
 function draw() {
+
     // let data = {
     //     // id : ,
     //     author: "Undetected",
@@ -61,9 +60,7 @@ function post_message() {
             content: content.value
         };
         content.value = "";
-        // console.log(content);
-        // console.log(data.author + " is trying to post a message :");
-        // console.log(data.content);
+
         socket.emit('post', data);
         let msg = new Message(data.author, data.content, true);
         document.getElementById("messages_container").innerHTML += msg.html;
@@ -86,49 +83,111 @@ function autoScroll() {
     window.scrollTo(0, document.body.scrollHeight);
 }
 
-// function windowResized() {
-//     let chat_window = document.getElementById("chat_window");
-//     // chat_window.style.maxHeight = windowHeight;
-//     chat_window.style.height = windowHeight;
-// }
-
 firebase.auth().onAuthStateChanged(function (user) {
     let logged = document.getElementById('logged-button');
     let loggin = document.getElementById('loggin-button');
-    let logginp = document.getElementById('loggin-page');
+    let newuser = document.getElementById('newuser-button');
+    // let logginp = document.getElementById('loggin-page');
     let footer_input = document.getElementById('content_input');
     let footer_button = document.getElementById('content_button');
-    
+
     if (user) {
-        console.log("// User is signed in.");
+        loggin.style.display = "none";
+        newuser.style.display = "none";
+        // logginp.style.display = "none";
         logged.style.display = "initial";
         footer_input.style.display = "initial";
         footer_button.style.display = "initial";
-        loggin.style.display = "none";
-        logginp.style.display = "none";
+        console.log("// User is signed in.");
+        console.log(user.email);
+
+        document.getElementById('userpage').innerText = user.email;
+
+        socket.emit('adduser', user.email);
+        socket.emit('refresh');
+
     } else {
-        logged.style.display = "none";        
+        loggin.style.display = "initial";
+        newuser.style.display = "initial";
+        // logginp.style.display = "initial";
+        logged.style.display = "none";
         footer_input.style.display = "none";
         footer_button.style.display = "none";
-        loggin.style.display = "initial";        
-        logginp.style.display = "initial";
         console.log("!! User is NOT signed in.");
     }
 });
 
 function login() {
 
+
     // alert("trying to log in");
-    let email = document.getElementById('inputEmail');
-    let password = document.getElementById('inputPassword');
+    let email = document.getElementById('inputEmail').value;
+    let password = document.getElementById('inputPassword').value;
+    // alert(`User is trying to connect with email : ${email} and password : ${password}`);
 
-    console.log(`Ùser is trying to connect with email : ${email} and password : ${password}`);
 
-
+    firebase.auth().signInWithEmailAndPassword(email, password).then(function () {
+        console.log("authentification is a success");
+    }).catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        console.log("error : " + error.message);
+    });
 }
 
-function refresh_users() {
+function logout() {
 
+    firebase.auth().signOut().catch(function (error) {
+        console.log("signing out is a FAILURE !");
+    });
+
+    socket.emit('subuser');
+    console.log("signing out is a success !");
+}
+
+function register() {
+
+    let email = document.getElementById('newuserEmail').value;
+    let password = document.getElementById('newuserPassword').value;
+    let username = document.getElementById('newUsername').value;
+
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        console.log("error : " + error.message);
+    });
+
+    let user = {
+        email : email,
+        username : username
+    };
+
+    socket.emit('register', user);
+}
+
+function refresh_users(data) {
+
+    console.log('is refreshing');
+    console.log(data);
+    let container = document.getElementById('users_window');
+    container.innerHTML = "";
+    data.clients.forEach((client, index) => {
+        console.log(client);
+        let child = document.createElement("p");
+
+        var i = data.save.users.indexOf(data.save.users.find(element => {
+            return element.email == client.email;
+        }));
+
+        console.log(data.save.users[i].username);
+        child.innerHTML = `<img class="userlist-img rounded-circle mr-1" src="img/000.jpg" alt="User Avatar">
+                            ${data.save.users[i].username}`;
+        container.appendChild(child);
+    });
 }
 
 // function refresh_users(data) {

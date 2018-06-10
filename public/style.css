@@ -11,17 +11,35 @@ html, body {
     height: 100%;
 }
 
-/* #logged-button {
+#userpage, header a {
+
+    color: whitesmoke;
+}
+
+header a:hover {
+    color: gray;
+}
+
+header a:active {
+    color: burlywood;
+}
+
+#newuser-button, #logged-button, #loggin-button, #loggin-page, #content_input, #content_button {
     display: none;
 }
 
-#footer {
+/* #footer {
     display: none;
 } */
 
 #logged-button img {
     width: 38px;
     height: 38px;
+}
+
+.userlist-img {
+    width: 18px;
+    height: 18px;
 }
 
 canvas {
