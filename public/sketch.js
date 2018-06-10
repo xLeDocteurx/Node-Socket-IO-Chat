@@ -4,14 +4,22 @@ let capture;
 let isStreaming;
 let xstream;
 
+let sound;
 // let userlist = {
 //     clients : []
 // };
+
+function preload() {
+
+    sound = loadSound('sound.wav');    
+}
 
 function setup() {
     socket = io.connect();
     socket.on('post', receve_message);
     socket.on('refresh', refresh_users);
+    
+    sound.playMode('restart');
 
     // createCanvas(390, 240);
     // capture = createCapture(VIDEO, function (stream) {
@@ -20,8 +28,6 @@ function setup() {
     // });
     // capture.size(160, 120);
     // capture.parent("users_window");
-
-
 
     //    <video id="vid" autoplay></video>
 
@@ -34,7 +40,6 @@ function setup() {
     //     socket.emit('cam', stream);
     // });
     noCanvas();
-
 }
 
 function draw() {
@@ -76,6 +81,7 @@ function receve_message(data) {
     let container = document.getElementById("messages_container");
     container.innerHTML += msg.html;
     autoScroll();
+    sound.play();
 }
 
 function autoScroll() {
