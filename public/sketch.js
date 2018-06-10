@@ -56,14 +56,15 @@ function post_message() {
     if (content.value != "") {
         let data = {
             // id : ,
-            author: "Undetected",
-            content: content.value
+            author: localStorage.getItem('user_email'),
+            content: content.value,
+            time: ""
         };
         content.value = "";
 
         socket.emit('post', data);
-        let msg = new Message(data.author, data.content, true);
-        document.getElementById("messages_container").innerHTML += msg.html;
+        // let msg = new Message(data.author, data.content, true);
+        // document.getElementById("messages_container").innerHTML += msg.html;
         autoScroll();
     }
 }
@@ -71,7 +72,7 @@ function post_message() {
 function receve_message(data) {
     console.log(data.author + " posted a message :");
     console.log(data.content);
-    let msg = new Message(data.author, data.content, false);
+    let msg = new Message(data.author, data.content, false, data.time);
     let container = document.getElementById("messages_container");
     container.innerHTML += msg.html;
     autoScroll();
@@ -105,6 +106,8 @@ firebase.auth().onAuthStateChanged(function (user) {
 
         socket.emit('adduser', user.email);
         socket.emit('refresh');
+
+        localStorage.setItem('user_email', user.email);
 
     } else {
         loggin.style.display = "initial";
@@ -145,6 +148,9 @@ function logout() {
 
     socket.emit('subuser');
     console.log("signing out is a success !");
+
+    localStorage.removeItem('user_email');
+    
 }
 
 function register() {
@@ -202,14 +208,14 @@ function refresh_users(data) {
 // }
 
 class Message {
-    constructor(author, content, isMine) {
+    constructor(author, content, isMine, time) {
         let align = '';
         if (isMine == false) {
             align = 'ml-auto';
         }
         let img = `<img class="avatar ${align} m-2" src="img/000.jpg" alt="Generic placeholder image">`;
         let msg = `<div class="mt-0 w-90 pb-1 media-body">
-                        <h5>${author} : </h5>
+                        <h5>${author} // <small>${time}</small> : </h5>
                         ${content}
                     </div>`;
 

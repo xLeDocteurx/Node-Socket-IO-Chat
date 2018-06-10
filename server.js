@@ -2,6 +2,11 @@ let express = require('express');
 let socket = require('socket.io');
 let bodyparser = require('body-parser');
 let fs = require('fs');
+var moment = require('moment');
+
+// moment().format();
+
+
 
 // let firebase = require('firebase');
 // let firebaseui = require('firebaseui');
@@ -103,14 +108,21 @@ io.on('connection', (socket) => {
     });
 
     socket.on('post', function (data) {
-        data.author = socket.id;
-        console.log(data.author + " is trying to post a message :");
-        console.log(data.content);
-        socket.broadcast.emit('post', data);
+
+        var i = save.users.find(element => {
+            return element.email == data.author;
+        });
+        data.author = i.username;
+
+        data.time = moment().format('LLLL');
+        // console.log(data.author + " is trying to post a message :");
+        // console.log(data.content);
+        io.sockets.emit('post', data);
         let post = {
             id: save.messages[save.messages.length - 1].id + 1,
             content: data.content,
-            author: data.author
+            author: data.author,
+            time: data.time
         };
         save.messages.push(post);
         commit(save);
