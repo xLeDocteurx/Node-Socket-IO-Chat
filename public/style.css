@@ -11,6 +11,12 @@ html, body {
     height: 100%;
 }
 
+#fixedtop {
+    position: fixed;
+    top: 50px;
+    right: 50px;
+}
+
 #userpage, header a {
 
     color: whitesmoke;
