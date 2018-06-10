@@ -10,7 +10,7 @@
             </div> -->
             <div id="chat_window" class="col">
 
-                <ul id="messages_container" class="list-unstyled">
+                <ul id="messages_container" class="list-unstyled mb-5">
                     <!-- parts/ message.ejs -->
                     <% datas.messages.forEach(function(message, index){ %>
                         <%- include('parts/message', {post : message, i : index}); %>
